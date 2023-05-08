@@ -4,8 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
-from api.models import db, User, Rooms,Customer,check_in,RoomStatus,Role
+from api.models import db, User, Rooms,Customer,Checkin,RoomStatus,Role
 from flask_jwt_extended import JWTManager,create_access_token,get_jwt_identity,jwt_required
+from datetime import datetime
 
 api = Blueprint('api', __name__)
 
@@ -110,21 +111,47 @@ def get_room():
     return jsonify({'rooms':[room.serialize()for room in rooms]})
 
 
-@api.router('/room/<int:room_id>', methods=['PATCH'])
+@api.route('/room/<int:room_id>', methods=['PATCH'])
 @jwt_required()
 def edit_room(room_id):
     room = Rooms.query.get_or_404(room_id)
     room_status =request.json.get('status', None)
-    new_status=Rooms(status=room_status)
-try:
-    db.session.add(new_status)
-    db.session.commit()
-    return jsonify({'room': room.serialize()})
-except Exception as error:
+    if room_status not in RoomStatus.__members__:
+        return jsonify({"error": f"No existe {room_status} en los status permitidos"}),400
+    room.status=room_status
+    try:
+        db.session.commit()
+        return jsonify({'room': room.serialize()})
+    except Exception as error:
         return jsonify({"msg":error.args[0]})
 
 
-@api.router('/checkin', methods=['POST'])
+@api.route('/checkin', methods=['POST'])
 @jwt_required()
 def checkin():
-    pass
+    
+    body= request.json
+    user_id= get_jwt_identity()
+    customer_id=body.get('customer_id',None)
+    if customer_id is None:
+        return {"error":"es necesario el id del cliente"},400
+    room_id= body.get('room_id',None)
+    if room_id is None:
+        return {"error":"es necesario el id del usuario"},400
+    room=Rooms.query.get(room_id)
+    if room is None:
+        return {"error":"La habitacion no existe"}, 404
+    time_in= datetime.now()
+    time_out= body.get("time_out",None)
+    if time_out is None:
+        return{"error":"La fecha de salida no puede estar vacia"},400
+    observations= body.get("observations",None)
+
+    new_checkin = Checkin(customer_id=customer_id, Rooms_id=room_id, time_in=time_in,time_out=time_out, observations=observations) 
+    db.session.add(new_checkin)
+    try:
+        room.status=RoomStatus.busy.value
+        db.session.commit()
+        return jsonify({"data": "La estancia ha sido creada con exito"}), 201
+    except Exception as error:
+        return jsonify({"msg":error.args[0]})

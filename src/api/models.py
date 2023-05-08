@@ -21,6 +21,12 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     role= db.Column(db.Enum(Role), nullable=False, default="user")
+    def serialize(self):
+        return {
+            "hotel_name":self.body_hotel_name,
+            "email": self.email,
+            "role": self.role.value,
+        }
 
 class Rooms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,12 +36,12 @@ class Rooms(db.Model):
     status= db.Column(db.Enum(RoomStatus), unique= False, nullable=False)
     user= db.relationship('User',backref='rooms')
     user_id= db.Column(db.Integer,db.ForeignKey('user.id'))
-def serialize(self):
-    return {
-            "id":self.id,
-            "number": self.number,
-            "room_type": self.room_type,
-            "status": self.status,
+    def serialize(self):
+        return {
+                "id":self.id,
+                "number": self.number,
+                "room_type": self.room_type,
+                "status": self.status.value,
         }
 
 
@@ -56,7 +62,7 @@ class Customer(db.Model):
             "email": self.email
         }
 
-class checkin(db.Model):
+class Checkin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time_in= db.Column(db.DateTime, nullable=False)
     time_out= db.Column(db.DateTime, nullable=False)
@@ -65,6 +71,14 @@ class checkin(db.Model):
     Rooms_id= db.Column(db.Integer,db.ForeignKey('rooms.id'), nullable=True)
     customer= db.relationship(Customer)
     customer_id= db.Column(db.Integer,db.ForeignKey('customer.id'), nullable=True)
+    def serialize(self):
+        return {
+            "time_in": self.time_in,
+            "time_out": self.time_out,
+            "observations": self.observations,
+            "Room_id": self.Rooms_id,
+            "customer_id": self.customer_id
+        }
 
 
 
