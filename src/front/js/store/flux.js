@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			backendUrl:process.env.BACKEND_URL,
 			demo: [
 				{
 					title: "FIRST",
@@ -17,6 +18,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+
+			registerUser: async(user) =>{
+				const store = getStore()
+				const response = await fetch(store.backendUrl + "/api/register", {
+					method: "POST", 
+					headers: {"Content-type": "application/json",},
+					body: JSON.stringify({email: user.email, password: user.password, name: user.name})
+				})
+				console.log(response)
+			},
+
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
