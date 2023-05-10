@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext} from "react";
 import  ReactDOM  from 'react-dom';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 const initialValue = {
     email: "",

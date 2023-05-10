@@ -1,5 +1,5 @@
 import React from "react";
-import {Banner} from "./Banner"
+// import {Banner} from "./Banner"
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 import TypeWriterText from "./TypeWriterText";
