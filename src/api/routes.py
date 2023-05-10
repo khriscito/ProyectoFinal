@@ -4,9 +4,12 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
+
+from werkzeug.security import generate_password_hash, check_password_hash
 from api.models import db, User, Rooms,Customer,Checkin,RoomStatus,Role
 from flask_jwt_extended import JWTManager,create_access_token,get_jwt_identity,jwt_required
 from datetime import datetime
+
 
 api = Blueprint('api', __name__)
 
@@ -19,6 +22,7 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
 
 @api.route('/login', methods=['POST'])
 def get_login():

@@ -4,4 +4,9 @@
     All pages share the styles on index.css but you should create 
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
+    background: linear-gradient(45deg,#00dbde,#fc00ff);
+    {background-image: linear-gradient(to top, #f43b47 0%, #453a94 100%);}
+    
 */
+
+
