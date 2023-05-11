@@ -10,6 +10,7 @@ import About from "./About.jsx"
 import Team from "./Team.jsx"
 import Partners from "./Partners.jsx"
 import Footer from "./Footer.jsx"
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (<>
@@ -22,7 +23,7 @@ const Home = () => {
 						<p className="lead mt-2 mb-5 ">Forma parte de nosotros y administra tu hotel, podrás crear diferentes tipos de habitaciones, <br></br>
 						registrar la cantidad, el estatus de cada una y más! </p>
 						<p className="lead">
-							<a className="btn btn-grad btn-lg" href="#" role="button"> Regístrate!</a>
+						<Link className="btn btn-grad btn-lg" to="/register" role="button"> Regístrate!</Link>
 						</p>
 						</div>
 						<div className="d-flex flex-column justify-content-center align-items-center">

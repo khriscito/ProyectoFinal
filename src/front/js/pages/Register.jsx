@@ -20,7 +20,7 @@ const Register = () => {
     };
 
     return (
-        <section className="vh-50 gradientback">
+        <section className="vh-100 gradientback">
         <div className="container">
             <div className="row d-flex justify-content-center align-items-center">
             <div className="col-lg-12 col-xl-11">
