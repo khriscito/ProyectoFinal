@@ -1,7 +1,7 @@
 import React from 'react'
 
 const About = () => {
-  return (
+    return (
     <section className="page-section bg-light" id="services">
             <div className="container">
                 <div className="text-center">
@@ -36,7 +36,7 @@ const About = () => {
                 </div>
             </div>
         </section>
-  )
+    )
 }
 
 export default About
