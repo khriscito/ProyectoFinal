@@ -49,7 +49,7 @@ def get_register():
     if body_password is None:
         return{"error": "Debe colocar una contraseña"}, 400
 
-    new_user = User(hotel_name=body_hotel_name, email=body_email, password=body_password, is_active=True) 
+    new_user = User(hotel_name=body_hotel_name, email=body_email, password=body_password, is_active=True, role="admin") 
     db.session.add(new_user)
     try:
         db.session.commit()

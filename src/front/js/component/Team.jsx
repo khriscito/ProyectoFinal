@@ -13,17 +13,17 @@ const Team = () => {
                     <h3 className="section-subheading text-muted">Conoce a nuestro equipo:</h3>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
                         <div className="team-member">
                             <img className="mx-auto rounded-circle" src={member1} alt="..." />
                             <h4>Khristhopher </h4>
                             <p className="text-muted my-3">Full-Stack Developer</p>
                             <a className="btn btn-grad btn-social mx-2 my-2" href="https://github.com/khriscito" aria-label="Khris Twitter Profile"><i className="fab fa-github"></i></a>
-                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="Khris Facebook Profile"><i className="fab fa-instagram"></i></a>
-                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="Khris LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a>
+                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="https://www.instagram.com/khristhopherarthuro/"><i className="fab fa-instagram"></i></a>
+                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="https://www.linkedin.com/in/khristhopherleon/"><i className="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
                         <div className="team-member">
                             <img className="mx-auto rounded-circle" src={member2} alt="..." />
                             <h4>Patricia</h4>
@@ -31,16 +31,6 @@ const Team = () => {
                             <a className="btn btn-grad btn-social mx-2 my-2" href="https://github.com/patriciaacpd" aria-label="Patricia Twitter Profile"><i className="fab fa-github"></i></a>
                             <a className="btn btn-grad btn-social mx-2 my-2" href="https://www.instagram.com/paatriciapd/" aria-label="Patricia Facebook Profile"><i className="fab fa-instagram"></i></a>
                             <a className="btn btn-grad btn-social mx-2 my-2" href="https://www.linkedin.com/in/patricia-p%C3%A9rez-8ab645230/" aria-label="Patricia LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="team-member">
-                            <img className="mx-auto rounded-circle" src={member3} alt="..." />
-                            <h4>Otoniel</h4>
-                            <p className="text-muted my-3">Full-Stack Developer</p>
-                            <a className="btn btn-grad btn-social mx-2 my-2" href="https://github.com/Xzelta" aria-label="Otoniel Twitter Profile"><i className="fab fa-github"></i></a>
-                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="Otoniel Facebook Profile"><i className="fab fa-instagram"></i></a>
-                            <a className="btn btn-grad btn-social mx-2 my-2" href="#!" aria-label="Otoniel LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
