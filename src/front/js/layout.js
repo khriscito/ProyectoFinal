@@ -5,16 +5,13 @@ import { BackendURL } from "./component/backendURL";
 
 // import { Home } from "./pages/home";
 import  Home  from "./component/home.jsx";
-import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-
+import Clients from "./pages/Clients.jsx";
+import Historics from "./pages/Historics.jsx";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -32,8 +29,11 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
                         <Route element={<Register />} path="/register" />
+                        <Route element={<Clients />} path="/dashboard/clients" />
+                        <Route element={<Historics />} path="/dashboard/historics" />
+
+                        <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
