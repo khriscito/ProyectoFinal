@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../layout.js";
 
 const Login = () => {
-   
     const navigate = useNavigate();
     const context = useContext(UserContext);
     const user = context.usuario;
     const handleChange = context.funcionContexto;
 
     const redirectOnLogin = () =>{
-        navigate('/profile');
+        navigate('/dashboard');
     };
 
     return (
