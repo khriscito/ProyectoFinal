@@ -1,6 +1,5 @@
 import React from "react";
 
-import {Banner} from "./Banner"
 import TypeWriterText from "./TypeWriterText";
 import Navigation from "./Navigation";
 import imag from "../../img/hotel.png"
