@@ -1,7 +1,6 @@
 import React from "react";
-// import {Banner} from "./Banner"
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+
+import {Banner} from "./Banner"
 import TypeWriterText from "./TypeWriterText";
 import Navigation from "./Navigation";
 import imag from "../../img/hotel.png"
