@@ -24,9 +24,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(store.backendUrl + "/api/register", {
 					method: "POST", 
 					headers: {"Content-type": "application/json",},
-					body: JSON.stringify({email: user.email, password: user.password, name: user.name})
+					body: JSON.stringify({email: user.email, password: user.password, hotel_name: user.name})
 				})
-				console.log(response)
+				const mensaje = await response.json()
+				console.log(mensaje)
 			},
 
 			exampleFunction: () => {
