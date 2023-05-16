@@ -30,26 +30,28 @@ const Login = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                             <i className="fas fa-envelope fa-lg me-3 fa-fw mb-4"></i>
                             <div className="form-outline flex-fill mb-0">
+                            <label className="form-label" for="form3Example3c">Correo</label>
                             <input type="email" id="form3Example3c" className="form-control"
                             placeholder="email"
                             name="email"
                             value={user.email} 
                             onChange={(event)=>handleChange(event)}
                             />
-                            <label className="form-label" for="form3Example3c">Correo</label>
+
                             </div>
                         </div>
     
                         <div className="d-flex flex-row align-items-center mb-4">
                             <i className="fas fa-lock fa-lg me-3 fa-fw mb-4"></i>
                             <div className="form-outline flex-fill mb-0">
+                            <label className="form-label" for="form3Example4c">Contraseña</label>
                             <input type="password" id="form3Example4c" className="form-control"
                             name="password"
                             placeholder="password"
                             value={user.password} 
                             onChange={(event)=>handleChange(event)}
                             />
-                            <label className="form-label" for="form3Example4c">Contraseña</label>
+                            
                             </div>
                         </div>
     

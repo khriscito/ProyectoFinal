@@ -9,18 +9,38 @@ const Dashboard = () => {
     <>
       <DashboardNav />
       <div className="container-fluid">
-        <h1 className="mt-4">Dashboard</h1>
-        <ol className="breadcrumb mb-4">
-          <li className="breadcrumb-item active">Dashboard</li>
-        </ol>
+        <h1 className="mt-4 p-3">Dashboard</h1>
         <div className="row">
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
-          <RoomCard variant="primary" roomNumber="1" />
+          <RoomCard 
+          variant="occupied" 
+          roomNumber="1"
+          costumer="Khris"
+          timein="3pm"
+          timeout="5pm"
+          />
+          <RoomCard 
+          variant="avaible" 
+          roomNumber="2" 
+          />
+          <RoomCard 
+          variant="not_avaible"
+          roomNumber="3"
+            />
+          <RoomCard 
+          variant="maintenance"
+          roomNumber="4" />
+          <RoomCard 
+          variant="avaible" 
+          roomNumber="5" />
+          <RoomCard 
+          variant="occupied" 
+          roomNumber="6"
+          costumer="Khris"
+          timein="3pm"
+          timeout="5pm" />
+          <RoomCard 
+          variant="avaible" 
+          roomNumber="7" />
         </div>
       </div>
       <DashboardFooter />

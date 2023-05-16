@@ -1,23 +1,30 @@
 import React from "react";
 
 const variants = {
-  primary: "bg-primary",
-  warning: "bg-warning",
-  success: "bg-success",
-  danger: "bg-danger",
+  avaible: "bg-success",
+  occupied: "bg-danger",
+  maintenance: "bg-warning",
+  not_avaible: "bg-secondary",
 };
-const RoomCard = ({ variant = "primary", roomNumber = "43" }) => {
+const RoomCard = ({
+  variant = "",
+  roomNumber = "",
+  costumer = "",
+  timein = "",
+  timeout = "",
+}) => {
   return (
-    <div className="col-xl-3 col-md-6">
+    <div className="col-xl-3 col-md-6 p-5">
       <div className={`card ${variants[variant]} text-white mb-4`}>
-        <div className="card-body">Habitación {roomNumber}</div>
-        <div className="card-footer d-flex align-items-center justify-content-between">
-          <a className="small text-white stretched-link" href="#">
-            View Details
-          </a>
-          <div className="small text-white">
-            <i className="fas fa-angle-right"></i>
-          </div>
+        <div className="card-header text-center">Status: {variant}</div>
+        <div className="align-items-center justify-content-center">
+          <div className="card-body">Nombre del cliente: {costumer}</div>
+          <div className="card-body">Tiempo de ingreso: {timein}</div>
+          <div className="card-body">Tiempo de salida: {timeout}</div>
+        </div>
+        <div className="card-footer d-flex align-items-center justify-content-center gap-5">
+            <i className="fas fa-bed fs-3"></i>
+            <span className="fs-3">{roomNumber}</span>
         </div>
       </div>
     </div>
