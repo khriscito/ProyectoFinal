@@ -1,24 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 
 const variants = {
   avaible: "bg-success",
   occupied: "bg-danger",
   maintenance: "bg-warning",
-  not_avaible: "bg-secondary",
+  not_Avaible: "bg-secondary",
 };
+
 const RoomCard = ({
   variant = "",
   roomNumber = "",
-  costumer = "",
+  customer = "",
   timein = "",
   timeout = "",
 }) => {
   return (
     <div className="col-xl-3 col-md-6 p-5">
       <div className={`card ${variants[variant]} text-white mb-4`}>
-        <div className="card-header text-center">Status: {variant}</div>
         <div className="align-items-center justify-content-center">
-          <div className="card-body">Nombre del cliente: {costumer}</div>
+          <div className="card-body">Nombre del cliente: {customer}</div>
           <div className="card-body">Tiempo de ingreso: {timein}</div>
           <div className="card-body">Tiempo de salida: {timeout}</div>
         </div>

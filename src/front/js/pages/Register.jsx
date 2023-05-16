@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext} from "react";
 import  ReactDOM  from 'react-dom';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 const initialValue = {
@@ -12,12 +12,18 @@ const initialValue = {
 const Register = () => {
     const { store, actions } = useContext(Context);
     const [newUser, setNewUser] = useState (initialValue);
+    const navigate=useNavigate()
     const handleChange = (e) => {
         setNewUser({...newUser,[e.target.name]:e.target.value});
     };
     const handleOnClick = async() =>{
-        actions.registerUser(newUser);
+        const response = await actions.registerUser(newUser);
+        if (response){
+            navigate('/dashboard');
+        }
+        
     };
+
 
     return (
         <section className="vh-100 gradientback">

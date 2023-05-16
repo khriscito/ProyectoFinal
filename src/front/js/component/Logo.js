@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import logo from "../../img/logo.png"
 
 const LogoText = styled.h1`
 font-family: 'Akaya Telivigala', cursive;
@@ -17,11 +18,9 @@ transition: all 0.2s ease;
 const Logo = () => {
   return (
     <LogoText>
-        <a >K </a>
-        <i class="fas fa-h-square"></i>
-        <a> O P</a>
-        
-        
+<div className="w-50 h-50 align-text-center d-flex">
+<img src={logo} alt="Logo" />
+</div>
     </LogoText>
   )
 }
