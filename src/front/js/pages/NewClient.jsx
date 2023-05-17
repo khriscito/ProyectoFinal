@@ -1,5 +1,8 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
+import { useForm } from "react-hook-form";
+import DashboardNavbar from "../component/DashboardNav.jsx";
+import DashboardFooter from "../component/DashboardFooter.jsx";
 const NewClient = () => {
   const { store, actions } = useContext(Context);
   const { register, handleSubmit } = useForm();
@@ -14,9 +17,7 @@ const NewClient = () => {
           <h3 className="text-center">Ingresa un nuevo cliente</h3>
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
             <div>
-              <label htmlFor="room_number">
-                Nombre y apellido
-              </label>
+              <label htmlFor="room_number">Nombre</label>
               <input
                 type="text"
                 name="id"
@@ -25,11 +26,24 @@ const NewClient = () => {
               />
             </div>
             <div>
-              <label htmlFor="room_type">Documento de identidad</label>
-             <input type="text" name="id" />
+              <label htmlFor="room_number">Apellido</label>
+              <input
+                type="text"
+                name="id"
+                className="form-control"
+                {...register("lastname")}
+              />
             </div>
             <div>
-              <label htmlFor="room_price">Precio de la habitación</label>
+              <label htmlFor="room_type">Documento de identidad</label>
+              <input type="text" name="id" className="form-control" />
+            </div>
+            <div>
+              <label htmlFor="room_type">Correo electronico</label>
+              <input type="text" name="id" className="form-control" />
+            </div>
+            <div>
+              <label htmlFor="room_price">Ocupacion</label>
               <input
                 type="text"
                 name="room_price"

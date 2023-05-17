@@ -12,9 +12,10 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import { createContext, useState } from "react";
 import Profile from "./pages/Profile.jsx";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const UserContext = createContext();
-
+import NewClient from "./pages/NewClient.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Clients from "./pages/Clients.jsx";
 import Historics from "./pages/Historics.jsx";
@@ -46,6 +47,18 @@ const Layout = () => {
       <UserContext.Provider value={contextValue}>
         <BrowserRouter basename={basename}>
           <ScrollToTop>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             {/* <Navbar /> */}
             <Routes>
               <Route element={<Home />} path="/" />
@@ -55,6 +68,8 @@ const Layout = () => {
               <Route element={<Login />} path="/login" />
               <Route element={<Profile />} path="/profile" />
               <Route element={<Clients />} path="/dashboard/clients" />
+              <Route element={<NewClient />} path="/dashboard/clients/new" />
+
               <Route element={<NewRoom />} path="/dashboard/room/new" />
               <Route element={<Historics />} path="/dashboard/historics" />
               <Route element={<h1>Not found!</h1>} />
