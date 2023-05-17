@@ -3,10 +3,11 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 const variants = {
-  avaible: "bg-success",
-  occupied: "bg-danger",
+  avaible: "",
+  occupied: "bg-danger text-white",
   maintenance: "bg-warning",
-  not_Avaible: "bg-secondary",
+  not_Avaible: "bg-secondary text-white",
+  occupied_maintenance: "bg-info text-white",
 };
 
 const RoomCard = ({
@@ -27,9 +28,17 @@ const RoomCard = ({
       actions.room();
     }
   };
+  const setMaintenance = async (occupy) => {
+    const value = occupy ? "occupied" : "occupied_maintenance";
+    const response = await actions.changeRoomStatus(id, value);
+    console.log(response);
+    if (response) {
+      actions.room();
+    }
+  };
   return (
     <div className="col-xl-3 col-md-6 p-5">
-      <div className={`card ${variants[variant]} text-white mb-4`}>
+      <div className={`card ${variants[variant]} mb-4`}>
         <div className="align-items-center justify-content-center">
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center">
@@ -56,24 +65,52 @@ const RoomCard = ({
         </div>
         <div className="card-footer d-flex align-items-center justify-content-between gap-5">
           <div>
-            <select
-              name="status"
-              defaultValue={variant}
-              className="form-control"
-              onChange={handleOnChange}
-            >
-              {store.room_status.map((item, index) => {
-                return (
-                  <option key={index} value={item.value}>
-                    {item.label}
-                  </option>
-                );
-              })}
-            </select>
+            {variant !== "occupied" && variant !== "occupied_maintenance" && (
+              <select
+                name="status"
+                defaultValue={variant}
+                className="form-control"
+                onChange={handleOnChange}
+              >
+                {store.room_status.map((item, index) => {
+                  return (
+                    <option key={index} value={item.value}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+              </select>
+            )}
+            {variant === "occupied" && (
+              <button
+                className="btn btn-info"
+                onClick={() => setMaintenance(false)}
+              >
+                Mantenimiento
+              </button>
+            )}
+            {variant === "occupied_maintenance" && (
+              <button
+                className="btn btn-warning"
+                onClick={() => setMaintenance(true)}
+              >
+                Ocupar
+              </button>
+            )}
           </div>
-          <Link className="btn btn-primary" to="/dashboard/clients/new">
-            Ocupar
-          </Link>
+          {(variant === "occupied" || variant === "occupied_maintenance") && (
+            <button className="btn btn-outline-warning">
+              terminar estadia
+            </button>
+          )}
+          {variant === "avaible" && (
+            <Link
+              className="btn btn-primary"
+              to={"/dashboard/room/occupy/" + id}
+            >
+              Ocupar
+            </Link>
+          )}
         </div>
       </div>
     </div>

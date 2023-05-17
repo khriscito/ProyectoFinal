@@ -23,6 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         { value: "maintenance", label: "Mantenimiento" },
         { value: "not_avaible", label: "No disponible" },
       ],
+      clients: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -147,6 +148,79 @@ const getState = ({ getStore, getActions, setStore }) => {
           return true;
         } catch (error) {
           console.log("error al eliminar habitacion", error);
+        }
+      },
+      createClient: async (client) => {
+        const store = getStore();
+        try {
+          const response = await fetch(store.backendUrl + "/api/customer", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              authorization: "Bearer " + store.token,
+            },
+            body: JSON.stringify(client),
+          });
+          const mensaje = await response.json();
+          if (!response.ok) {
+            toast.error("Error al crear cliente");
+            return false;
+          }
+          toast.success("Cliente creado con exito");
+          getActions().getClients();
+          return true;
+        } catch (error) {
+          console.log("error al crear cliente", error);
+        }
+      },
+      getClients: async () => {
+        const store = getStore();
+        try {
+          const response = await fetch(store.backendUrl + "/api/customers", {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              authorization: "Bearer " + store.token,
+            },
+          });
+          const clientes = await response.json();
+          const sortedClientes = clientes.customers.sort((a, b) => {
+            return a.id - b.id;
+          });
+          console.log(sortedClientes);
+          setStore({ ...store, clients: sortedClientes });
+        } catch (error) {
+          console.log("error al cargar los clientes", error);
+        }
+      },
+      createCheckIn: async (checkIn, id) => {
+        const store = getStore();
+        const body = {
+          ...checkIn,
+          room_id: id,
+        };
+        try {
+          const response = await fetch(store.backendUrl + "/api/checkin", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              authorization: "Bearer " + store.token,
+            },
+            body: JSON.stringify(body),
+          });
+          const mensaje = await response.json();
+          if (!response.ok) {
+            console.log(response);
+            toast.error("Error al crear checkin");
+            return false;
+          }
+          toast.success("Checkin creado con exito");
+          getActions().room();
+          return true;
+        } catch (error) {
+          toast.error("Error al crear checkin");
+
+          console.log("error al crear checkin", error);
         }
       },
       exampleFunction: () => {
