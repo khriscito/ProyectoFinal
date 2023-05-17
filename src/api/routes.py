@@ -65,7 +65,7 @@ def get_register_customer():
         return{"error": "El documento no puede ir vacio"}
     customer = Customer.query.filter_by(document=body_document).first()
     if costumer is not none:
-            return jsonify (custumer.serialize())
+            return jsonify(customer.serialize())
     body_name = body.get('name',None)
     if body_name is None:
         return{"error": "El nombre no puede ir vacio"}
