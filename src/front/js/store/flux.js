@@ -1,10 +1,11 @@
+import { toast } from "react-toastify";
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
       backendUrl: process.env.BACKEND_URL,
       token: localStorage.getItem("token") || "",
-      rooms:[],
+      rooms: [],
       demo: [
         {
           title: "FIRST",
@@ -16,6 +17,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           background: "white",
           initial: "white",
         },
+      ],
+      room_status: [
+        { value: "avaible", label: "Disponible" },
+        { value: "maintenance", label: "Mantenimiento" },
+        { value: "not_avaible", label: "No disponible" },
       ],
     },
     actions: {
@@ -47,27 +53,102 @@ const getState = ({ getStore, getActions, setStore }) => {
         const mensaje = await response.json();
         console.log(mensaje);
         setStore({ ...store, token: mensaje.token });
-        localStorage.setItem("token",mensaje.token)
-		return true
+        localStorage.setItem("token", mensaje.token);
+        return true;
       },
 
-      room: async()=>{
-
-        const store= getStore();
-        const response= await fetch(store.backendUrl+"/api/rooms",{
+      room: async () => {
+        const store = getStore();
+        const response = await fetch(store.backendUrl + "/api/rooms", {
           method: "GET",
-          headers:{"Content-type":"application/json",
-          "Authorization":"Bearer "+store.token},
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
         });
-        const rooms= await response.json();
-        console.log(rooms)
-        try{
-        setStore ({...store, rooms:rooms.rooms})}
-        catch(error){
-          console.log("error al cargar las habitaciones",error)
+        const rooms = await response.json();
+        const sortedRooms = rooms.rooms.sort((a, b) => {
+          return a.id - b.id;
+        });
+
+        console.log(rooms);
+        try {
+          setStore({ ...store, rooms: sortedRooms });
+        } catch (error) {
+          console.log("error al cargar las habitaciones", error);
         }
       },
+      createRoom: async (room) => {
+        const store = getStore();
+        try {
+          const response = await fetch(store.backendUrl + "/api/room", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              authorization: "Bearer " + store.token,
+            },
+            body: JSON.stringify(room),
+          });
+          const mensaje = await response.json();
+          toast.success("Habitacion creada con exito");
+          return true;
+        } catch (error) {
+          console.log("error al crear habitacion", error);
+        }
+        return true;
+      },
+      changeRoomStatus: async (room_id, status) => {
+        const store = getStore();
+        try {
+          const response = await fetch(
+            store.backendUrl + "/api/room/" + room_id,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-type": "application/json",
+                authorization: "Bearer " + store.token,
+              },
+              body: JSON.stringify({ status: status }),
+            }
+          );
+          const mensaje = await response.json();
+          if (!response.ok) {
+            toast.error("Error al cambiar estado de habitacion");
+            return false;
+          }
+          toast.success("Estado de habitacion cambiado con exito");
 
+          return true;
+        } catch (error) {
+          console.log("error al cambiar estado de habitacion", error);
+        }
+      },
+      deleteRoom: async (room_id) => {
+        const store = getStore();
+        const actions = getActions();
+        try {
+          const response = await fetch(
+            store.backendUrl + "/api/room/" + room_id,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json",
+                authorization: "Bearer " + store.token,
+              },
+            }
+          );
+          const mensaje = await response.json();
+          if (!response.ok) {
+            toast.error("Error al eliminar habitacion");
+            return false;
+          }
+          toast.success("Habitacion eliminada con exito");
+          actions.room();
+          return true;
+        } catch (error) {
+          console.log("error al eliminar habitacion", error);
+        }
+      },
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },

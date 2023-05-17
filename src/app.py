@@ -13,24 +13,26 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 
-#from models import Person
+# from models import Person
 
 ENV = os.getenv("FLASK_ENV")
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+static_file_dir = os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config['JWT_SECRET_KEY'] = os.environ.get('FLASK_KEY_APP')
-jwt=JWTManager(app) 
+jwt = JWTManager(app)
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
+        "postgres://", "postgresql://")
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type = True)
+MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # Allow CORS requests to this API
@@ -46,11 +48,15 @@ setup_commands(app)
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
+
+
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 # generate sitemap with all your endpoints
+
+
 @app.route('/')
 def sitemap():
     if ENV == "development":
@@ -83,7 +89,7 @@ def sitemap():
 #     if body_password is None:
 #         return{"error": "Debe colocar una contraseña"}, 400
 
-#     new_user = User(hotel_name=body_hotel_name, email=body_email, password=body_password) 
+#     new_user = User(hotel_name=body_hotel_name, email=body_email, password=body_password)
 #     db.session.add(new_user)
 #     try:
 #         db.session.commit()
@@ -107,11 +113,10 @@ def sitemap():
 #     body_occupation= body.get('occupation',None)
 #     body_email = body.get('email',None)
 
-#     new_costumer = Costumer(name=body_name, document= body_document, last_name=body_lastname, occupation=body_occupation, email=body_email) 
+#     new_costumer = Costumer(name=body_name, document= body_document, last_name=body_lastname, occupation=body_occupation, email=body_email)
 #     db.session.add(new_costumer)
 #     db.session.commit()
 #     return jsonify({"data": "Usuario ha sido creado con exito"}), 201
-    
 
 
 # any other endpoint will try to serve it like a static file
@@ -120,7 +125,7 @@ def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):
         path = 'index.html'
     response = send_from_directory(static_file_dir, path)
-    response.cache_control.max_age = 0 # avoid cache memory
+    response.cache_control.max_age = 0  # avoid cache memory
     return response
 
 
