@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom';
 const LogoText = styled.h1`
 font-family: 'Akaya Telivigala', cursive;
 font-size: 1.25em;
@@ -18,7 +18,8 @@ const Logo = () => {
   return (
     <LogoText>
         <a >K </a>
-        <i class="fas fa-h-square"></i>
+        <i class="fas fa-h-square">
+        </i>
         <a> O P</a>
         
         
