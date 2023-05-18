@@ -272,3 +272,10 @@ p.danger {
   max-width: 100%;
   height: auto;
 }
+
+.error-text{
+
+  color: red;
+  margin: 0.5rem;
+  text-align: center;
+}

@@ -27,7 +27,7 @@ const Dashboard = () => {
       <DashboardNav />
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center">
-          <h1 className="mt-4 p-3">Dashboard</h1>
+          <h1 className="mt-4 p-3  justify-content-center">Habitaciones</h1>
           <Link className="btn btn-primary" to="/dashboard/room/new">
             Agregar habitación
           </Link>
