@@ -55,7 +55,7 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li`
   margin: 0 1rem;
-  color: #fafbfd;
+  color: #ffffff;
   cursor: pointer;
 
   &::after {

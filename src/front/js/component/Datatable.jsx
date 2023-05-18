@@ -1,12 +1,17 @@
 import React from "react";
 
-
 let defaultData = {
-    fields: ["id", "nombre", "ci"],
-    data: [0,1,2,3,4,5,6,7,8,9],
-    title: "default datatable"
-}
-const Datatable = ({ fields=defaultData.fields, data=defaultData.data, title=defaultData.title }) => {
+  fields: ["id", "nombre", "ci"],
+  data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  title: "default datatable",
+};
+const Datatable = ({
+  fields = defaultData.fields,
+  data = defaultData.data,
+  title = defaultData.title,
+  children,
+}) => {
+  console.log(data);
   return (
     <>
       <div className="card mb-4">
@@ -29,6 +34,8 @@ const Datatable = ({ fields=defaultData.fields, data=defaultData.data, title=def
                   })}
                 </tr>
               </thead>
+
+              <tbody>{children && children}</tbody>
               <tfoot>
                 <tr>
                   {fields.map((field) => {
@@ -36,18 +43,6 @@ const Datatable = ({ fields=defaultData.fields, data=defaultData.data, title=def
                   })}
                 </tr>
               </tfoot>
-              <tbody>
-                {data.map((item) => (
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
-                ))}
-              </tbody>
             </table>
           </div>
         </div>

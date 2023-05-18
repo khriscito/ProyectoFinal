@@ -27,10 +27,52 @@ const Dashboard = () => {
       <DashboardNav />
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center">
-          <h1 className="mt-4 p-3">Dashboard</h1>
+          <h1 className="mt-4 p-3  justify-content-center">Habitaciones</h1>
           <Link className="btn btn-primary" to="/dashboard/room/new">
             Agregar habitación
           </Link>
+        </div>
+        <div className="row justify-content-center text-center">
+          <div className="col-6 col-md-2">
+            <p className="border rounded p-1">
+              Disponibles:{" "}
+              {store.rooms?.filter((room) => room.status === "avaible").length}
+            </p>
+          </div>
+          <div className="col-6 col-md-2">
+            <p className="border rounded p-1">
+              Ocupadas:{" "}
+              {store.rooms?.filter((room) => room.status === "occupied").length}
+            </p>
+          </div>
+          <div className="col-6 col-md-2">
+            <p className="border rounded p-1">
+              Mantenimiento:{" "}
+              {
+                store.rooms?.filter((room) => room.status === "maintenance")
+                  .length
+              }
+            </p>
+          </div>
+          <div className="col-6 col-md-2">
+            <p className="border rounded p-1">
+              Limpieza:{" "}
+              {
+                store.rooms?.filter(
+                  (room) => room.status === "occupied_maintenance"
+                ).length
+              }
+            </p>
+          </div>
+          <div className="col-6 col-md-2">
+            <p className="border rounded p-1">
+              No disponibles:{" "}
+              {
+                store.rooms?.filter((room) => room.status === "not_Avaible")
+                  .length
+              }
+            </p>
+          </div>
         </div>
         <div className="row">
           {store.rooms?.map((room) => (
@@ -38,9 +80,7 @@ const Dashboard = () => {
               key={room.id}
               variant={room.status}
               roomNumber={room.number}
-              customer={room.customer_name}
-              timein={room.checkin_time}
-              timeout={room.checkout_time}
+              checkin={room.checkin}
               roomType={room.room_type}
               id={room.id}
             />

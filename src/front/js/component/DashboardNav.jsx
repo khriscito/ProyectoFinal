@@ -3,6 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import Logo from "../component/Logo.js"
 const DashboardNav = () => {
   const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate("/");
+  };
   return (
     <>
       <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
@@ -27,23 +31,22 @@ const DashboardNav = () => {
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Hotelium
+            <Logo></Logo>
+            <div className="align-text-center m-4 gap-2 fs-1">
+            Dashboard
+          </div>
           </h5>
           <button
             type="button"
-            className="btn-close"
+            className="btn-close my-3"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           ></button>
         </div>
         <div className="offcanvas-body">
-          <div>
-            Some text as placeholder. In real life you can have the elements you
-            have chosen. Like, text, images, lists, etc.
-          </div>
-          <div className="row">
+            <div className="row">
             <button
-              className="navbar-brand"
+              className="navbar-brand btn btn-outline-light my-4"
               onClick={() => navigate("/dashboard")}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
@@ -51,7 +54,7 @@ const DashboardNav = () => {
               Habitaciones
             </button>
             <button
-              className="navbar-brand"
+              className="navbar-brand btn btn-outline-light my-4"
               onClick={() => navigate("/dashboard/clients")}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
@@ -59,7 +62,7 @@ const DashboardNav = () => {
               Clientes
             </button>
             <button
-              className="navbar-brand"
+              className="navbar-brand btn btn-outline-light my-4"
               onClick={() => navigate("/dashboard/historics")}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
@@ -67,8 +70,8 @@ const DashboardNav = () => {
               Historial
             </button>
           </div>
-          <div className="dropdown mt-3">
-            <button className="btn btn-danger" type="button">
+          <div className="dropdown mt-3 my-5 d-grid gap-2 col-6 mx-auto">
+            <button className="btn btn-danger" type="button" onClick={logout}>
               Cerrar sesion
             </button>
           </div>
