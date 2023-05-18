@@ -44,7 +44,7 @@ const Register = () => {
   const handleOnClick = async () => {
     const response = await actions.registerUser(newUser);
     if (response) {
-      navigate("/dashboard");
+      navigate("/login");
     }
   };
 

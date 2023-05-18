@@ -41,7 +41,7 @@ const handleOnClick = async () => {
 }
 
 return (
-  <section className="vh-50 gradientback">
+  <section className="vh-100 gradientback">
   <Navbar/>
     <div className="container">
       <div className="row d-flex justify-content-center align-items-center">
