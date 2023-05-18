@@ -18,14 +18,14 @@ const Home = () => {
 					<div className="jumbotron bg-light d-flex justify-content-center align-items-center rounded p-5">
 						<div className="d-flex flex-column justify-content-center">
 						<h1 className="display-4"><TypeWriterText/></h1>
-						<p className="lead mt-2 mb-5 ">Forma parte de nosotros y administra tu hotel, podrás crear diferentes tipos de habitaciones, <br></br>
+						<p className="lead mt-2 mb-5 homep">Forma parte de nosotros y administra tu hotel, podrás crear diferentes tipos de habitaciones, <br></br>
 						registrar la cantidad, el estatus de cada una y más! </p>
 						<p className="lead">
-						<Link className="btn btn-grad btn-lg" to="/register" role="button"> Regístrate!</Link>
+						<Link className="btn btn-grad btn-lg homeb" to="/register" role="button"> Regístrate!</Link>
 						</p>
 						</div>
-						<div className="d-flex flex-column justify-content-center align-items-center">
-						<img className="contain" style={{ width: 300, height: 300}} src={imag} alt="Hotel" />
+						<div className="d-flex flex-column justify-content-center align-items-center col-2 col-sm-12 col-lg-2 col-md-6 ms-5">
+						<img className="contain"  src={imag} alt="Hotel" />
 						</div>
 					</div>
 				</div>

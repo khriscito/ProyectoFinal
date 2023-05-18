@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Logo from "../component/Logo.js"
 const DashboardNav = () => {
   const navigate = useNavigate();
   return (
     <>
       <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
         <Link className="navbar-brand" to="/dashboard">
-          Start Bootstrap
+          <Logo></Logo>
         </Link>
         <button
           className="btn btn-sm order-1 text-white order-lg-0"

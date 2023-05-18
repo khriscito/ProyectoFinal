@@ -154,7 +154,7 @@ def checkin():
     new_checkin = Checkin(customer_id=customer_id, Rooms_id=room_id, time_in=time_in,time_out=time_out, observations=observations) 
     db.session.add(new_checkin)
     try:
-        room.status=RoomStatus.busy.value
+        room.status=RoomStatus.occupied.value
         db.session.commit()
         return jsonify({"data": "La estancia ha sido creada con exito"}), 201
     except Exception as error:

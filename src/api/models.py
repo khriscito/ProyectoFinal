@@ -10,7 +10,7 @@ class Role(enum.Enum):
 
 class RoomStatus(enum.Enum):
     avaible= "avaible"
-    busy= "busy"
+    occupied= "occupied"
     maintenance= "maintenance"
     not_avaible= "not_Avaible"
 
