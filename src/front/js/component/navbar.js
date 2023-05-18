@@ -1,19 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo.js";
 
 export const Navbar = () => {
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
+  return (
+    <nav className="navbar">
+      <div className="container">
+        <Logo />
+        <div className="ml-auto d-flex gap-3">
+          <Link to="/register">
+            <i class="far fa-address-card"> Registro</i>
+          </Link>
+          <Link to="/login">
+            <i class="fas fa-sign-in-alt"> Login</i>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
+
+export default Navbar;
