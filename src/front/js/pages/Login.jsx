@@ -15,7 +15,6 @@ const Login = () => {
   const navigate= useNavigate()
   const [login, setLogin] = useState(initialValue);
   const handleChange = (event) => {
-    setLogin({ ...login, [event.target.name]: event.target.value });
     const { name, value } = event.target;
     let errorEmail = "";
     let errorPassword = "";
@@ -32,7 +31,7 @@ const Login = () => {
         errorPassword = "La contraseña debe tener al menos 6 caracteres";
       }
     }
-    setLogin({ ...login, errorEmail:errorEmail, errorPassword:errorPassword });
+    setLogin({ ...login, [event.target.name]: event.target.value, errorEmail:errorEmail, errorPassword:errorPassword });
 };
 const handleOnClick = async () => {
   const response = await actions.login(login);

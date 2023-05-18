@@ -174,7 +174,7 @@ def delete_room(room_id):
 @jwt_required()
 def free_room(room_id):
     room = Rooms.query.get_or_404(room_id)
-    room.status = "avaible"
+    room.status = "maintenance"
     db.session.commit()
     return jsonify({"room": room.serialize()})
 
