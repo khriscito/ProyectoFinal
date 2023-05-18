@@ -19,7 +19,7 @@ import NewClient from "./pages/NewClient.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Clients from "./pages/Clients.jsx";
 import Historics from "./pages/Historics.jsx";
-
+import CreateTransaction from "./pages/CreateTransaction.jsx";
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
@@ -69,8 +69,11 @@ const Layout = () => {
               <Route element={<Profile />} path="/profile" />
               <Route element={<Clients />} path="/dashboard/clients" />
               <Route element={<NewClient />} path="/dashboard/clients/new" />
-
               <Route element={<NewRoom />} path="/dashboard/room/new" />
+              <Route
+                element={<CreateTransaction />}
+                path="/dashboard/room/occupy/:id"
+              />
               <Route element={<Historics />} path="/dashboard/historics" />
               <Route element={<h1>Not found!</h1>} />
             </Routes>

@@ -7,16 +7,20 @@ from api.utils import generate_sitemap, APIException
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.models import db, User, Rooms, Customer, Checkin, RoomStatus, Role
-from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
-from datetime import timedelta
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    get_jwt_identity,
+    jwt_required,
+)
+from datetime import timedelta, datetime
 
 
-api = Blueprint('api', __name__)
+api = Blueprint("api", __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
+@api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
-
     response_body = {
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     }
@@ -24,37 +28,43 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
-@api.route('/login', methods=['POST'])
+@api.route("/login", methods=["POST"])
 def get_login():
     body = request.json
-    body_email = body.get('email', None)
-    body_password = body.get('password', None)
+    body_email = body.get("email", None)
+    body_password = body.get("password", None)
     if body_email is None or body_password is None:
-        return {"Error": "no ha colocado su correo o contraseña"}
+        return {"Error": "no ha colocado su correo o contraseña"}, 400
     user = User.query.filter_by(email=body_email).first()
     # extend jwt duration
+    if user is None:
+        return {"Error": "El usuario no existe"}, 404
+    token = create_access_token(identity=user.id, expires_delta=False)
+    print(token)
+    return jsonify({"token": token})
 
-    expires = timedelta(hours=4)
-    token = create_access_token(identity=user.id, expires_delta=expires)
-    return jsonify({'token': token})
 
-
-@api.route('/register', methods=['POST'])
+@api.route("/register", methods=["POST"])
 def get_register():
     body = request.json
-    body_hotel_name = body.get('hotel_name', None)
-    body_email = body.get('email', None)
+    body_hotel_name = body.get("hotel_name", None)
+    body_email = body.get("email", None)
     if body_email is None:
         return {"error": "Debe colocar un email"}, 400
     email_exists = User.query.filter_by(email=body_email).first()
     if email_exists:
         return {"Error": "Ya existe un email "}
-    body_password = body.get('password', None)
+    body_password = body.get("password", None)
     if body_password is None:
         return {"error": "Debe colocar una contraseña"}, 400
 
-    new_user = User(hotel_name=body_hotel_name, email=body_email,
-                    password=body_password, is_active=True, role="admin")
+    new_user = User(
+        hotel_name=body_hotel_name,
+        email=body_email,
+        password=body_password,
+        is_active=True,
+        role="admin",
+    )
     db.session.add(new_user)
     try:
         db.session.commit()
@@ -63,24 +73,30 @@ def get_register():
         return jsonify({"msg": error.args[0]})
 
 
-@api.route('/customer', methods=['POST'])
+@api.route("/customer", methods=["POST"])
 def get_register_customer():
     body = request.json
-    body_document = body.get('document', None)
+    body_document = body.get("document", None)
     if body_document is None:
         return {"error": "El documento no puede ir vacio"}
     customer = Customer.query.filter_by(document=body_document).first()
-    if costumer is not none:
-        return jsonify(customer.serialize())
-    body_name = body.get('name', None)
+    if customer is not None:
+        return jsonify({"error": "El cliente ya existe"})
+    body_name = body.get("name", None)
     if body_name is None:
         return {"error": "El nombre no puede ir vacio"}
-    body_lastname = body.get('lastname', None)
-    body_occupation = body.get('occupation', None)
-    body_email = body.get('email', None)
+    body_lastname = body.get("lastname", None)
+    body_occupation = body.get("occupation", None)
+    body_email = body.get("email", None)
 
-    new_custumer = Customer(name=body_name, document=body_document, lastname=body_lastname,
-                            occupation=body_occupation, email=body_email, is_active=True)
+    new_custumer = Customer(
+        name=body_name,
+        document=body_document,
+        lastname=body_lastname,
+        occupation=body_occupation,
+        email=body_email,
+        is_active=True,
+    )
     db.session.add(new_custumer)
     try:
         db.session.commit()
@@ -89,34 +105,39 @@ def get_register_customer():
         return jsonify({"msg": error.args[0]})
 
 
-@api.route('/customers', methods=['GET'])
+@api.route("/customers", methods=["GET"])
 @jwt_required()
 def get_customer():
     user_id = get_jwt_identity()
-    customers = Customer.query.filter_by(user_id=user_id).all()
+    customers = Customer.query.all()
     # return only active customers
     customers = list(filter(lambda customer: customer.is_active, customers))
 
-    return jsonify({'customers': [customer.serialize() for customer in customers]})
+    return jsonify({"customers": [customer.serialize() for customer in customers]})
 
 
-@api.route('/room', methods=['POST'])
+@api.route("/room", methods=["POST"])
 @jwt_required()
 def create_room():
     body = request.json
     user_id = get_jwt_identity()
-    body_number = body.get('number', None)
+    body_number = body.get("number", None)
     if body_number is None:
         return {"error": "Es necesario un número de habitación"}
-    body_room_type = body.get('room_type', None)
+    body_room_type = body.get("room_type", None)
     if body_room_type is None:
         return {"error": "Es necesario colocar el tipo de habitación"}
-    body_status = body.get('status', None)
+    body_status = body.get("status", None)
     if body_status is None:
         return {"error": "Es necesario colocar el estado de la habitación"}
 
-    new_room = Rooms(number=body_number, room_type=body_room_type,
-                     status=body_status, is_active=True, user_id=user_id)
+    new_room = Rooms(
+        number=body_number,
+        room_type=body_room_type,
+        status=body_status,
+        is_active=True,
+        user_id=user_id,
+    )
     db.session.add(new_room)
     try:
         db.session.commit()
@@ -125,54 +146,70 @@ def create_room():
         return jsonify({"msg": error.args[0]})
 
 
-@api.route('/rooms', methods=['GET'])
+@api.route("/rooms", methods=["GET"])
 @jwt_required()
 def get_room():
     user_id = get_jwt_identity()
     rooms = Rooms.query.filter_by(user_id=user_id).all()
+    print(rooms)
     # return only active rooms
     rooms = list(filter(lambda room: room.is_active, rooms))
+    print(rooms)
+    return jsonify({"rooms": [room.serialize() for room in rooms]})
 
-    return jsonify({'rooms': [room.serialize()for room in rooms]})
 
-
-@api.route('/room/<int:room_id>', methods=['DELETE'])
+@api.route("/room/<int:room_id>", methods=["DELETE"])
 @jwt_required()
 def delete_room(room_id):
     room = Rooms.query.get_or_404(room_id)
     room.is_active = False
     try:
         db.session.commit()
-        return jsonify({'room': room.serialize()})
+        return jsonify({"room": room.serialize()})
     except Exception as error:
         return jsonify({"msg": error.args[0]})
 
 
-@api.route('/room/<int:room_id>', methods=['PATCH'])
+@api.route("/room/free/<int:room_id>", methods=["PATCH"])
+@jwt_required()
+def free_room(room_id):
+    room = Rooms.query.get_or_404(room_id)
+    room.status = "avaible"
+    db.session.commit()
+    return jsonify({"room": room.serialize()})
+
+
+@api.route("/room/<int:room_id>", methods=["PATCH"])
 @jwt_required()
 def edit_room(room_id):
     room = Rooms.query.get_or_404(room_id)
-    room_status = request.json.get('status', None)
-    if room_status not in RoomStatus.__members__:
-        return jsonify({"error": f"No existe {room_status} en los status permitidos"}), 400
-    room.status = room_status
+    room_status = request.json.get("status", None)
+    if room_status == RoomStatus.occupied_maintenance.value:
+        room.status = RoomStatus.occupied_maintenance.value
+    elif room_status not in RoomStatus.__members__:
+        return (
+            jsonify({"error": f"No existe {room_status} en los status permitidos"}),
+            400,
+        )
+    else:
+        room.status = room_status
     try:
         db.session.commit()
-        return jsonify({'room': room.serialize()})
+        return jsonify({"room": room.serialize()})
     except Exception as error:
         return jsonify({"msg": error.args[0]})
 
 
-@api.route('/checkin', methods=['POST'])
+@api.route("/checkin", methods=["POST"])
 @jwt_required()
 def checkin():
-
     body = request.json
     user_id = get_jwt_identity()
-    customer_id = body.get('customer_id', None)
+    customer_id = body.get("customer_id", None)
+    print(customer_id)
     if customer_id is None:
         return {"error": "es necesario el id del cliente"}, 400
-    room_id = body.get('room_id', None)
+    room_id = body.get("room_id", None)
     if room_id is None:
         return {"error": "es necesario el id del usuario"}, 400
     room = Rooms.query.get(room_id)
@@ -183,9 +220,14 @@ def checkin():
     if time_out is None:
         return {"error": "La fecha de salida no puede estar vacia"}, 400
     observations = body.get("observations", None)
-
-    new_checkin = Checkin(customer_id=customer_id, Rooms_id=room_id,
-                          time_in=time_in, time_out=time_out, observations=observations)
+    room.status = RoomStatus.occupied.value
+    new_checkin = Checkin(
+        customer_id=customer_id,
+        Rooms_id=room_id,
+        time_in=time_in,
+        time_out=time_out,
+        observations=observations,
+    )
     db.session.add(new_checkin)
     try:
         room.status = RoomStatus.occupied.value
@@ -193,3 +235,12 @@ def checkin():
         return jsonify({"data": "La estancia ha sido creada con exito"}), 201
     except Exception as error:
         return jsonify({"msg": error.args[0]})
+
+
+@api.route("/checkin", methods=["GET"])
+@jwt_required()
+# get all the checkins from the rooms that belong to the user
+def get_checkin():
+    user_id = get_jwt_identity()
+    checkin = Checkin.query.join(Rooms).filter(Rooms.user_id == user_id).all()
+    return jsonify({"checkin": [checkin.serialize() for checkin in checkin]})
