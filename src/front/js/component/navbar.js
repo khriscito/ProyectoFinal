@@ -8,10 +8,10 @@ export const Navbar = () => {
       <div className="container">
         <Logo />
         <div className="ml-auto d-flex gap-3">
-          <Link to="/register">
+          <Link style={{color: 'white'}} to="/register">
             <i class="far fa-address-card"> Registro</i>
           </Link>
-          <Link to="/login">
+          <Link style={{color: 'white'}} to="/login">
             <i class="fas fa-sign-in-alt"> Login</i>
           </Link>
         </div>

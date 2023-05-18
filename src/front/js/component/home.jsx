@@ -21,7 +21,7 @@ const Home = () => {
 						<p className="lead mt-2 mb-5 homep">Forma parte de nosotros y administra tu hotel, podrás crear diferentes tipos de habitaciones, <br></br>
 						registrar la cantidad, el estatus de cada una y más! </p>
 						<p className="lead">
-						<Link className="btn btn-grad btn-lg homeb" to="/register" role="button"> Regístrate!</Link>
+						<Link style={{color: 'white'}} className="btn btn-grad btn-lg homeb" to="/register" role="button"> Regístrate!</Link>
 						</p>
 						</div>
 						<div className="d-flex flex-column justify-content-center align-items-center col-2 col-sm-12 col-lg-2 col-md-6 ms-5">

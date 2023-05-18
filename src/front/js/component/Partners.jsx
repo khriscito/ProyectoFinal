@@ -18,7 +18,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img1} alt="..." />
                             <div className="portfolio-box-caption">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel A</div>
+                                <div className="project-name">Hotel Azerbaiyán</div>
                             </div>
                         </a>
                     </div>
@@ -27,7 +27,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img2} alt="..." />
                             <div className="portfolio-box-caption">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel B</div>
+                                <div className="project-name">Hotel Bangladesh</div>
                             </div>
                         </a>
                     </div>
@@ -36,7 +36,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img3} alt="..." />
                             <div className="portfolio-box-caption">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel C</div>
+                                <div className="project-name">Hotel Côte d'Ivoire</div>
                             </div>
                         </a>
                     </div>
@@ -45,7 +45,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img4} alt="..." />
                             <div className="portfolio-box-caption">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel D</div>
+                                <div className="project-name">Hotel Dominica</div>
                             </div>
                         </a>
                     </div>
@@ -54,7 +54,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img5} alt="..." />
                             <div className="portfolio-box-caption">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel E</div>
+                                <div className="project-name">Hotel Eswatini </div>
                             </div>
                         </a>
                     </div>
@@ -63,7 +63,7 @@ const Partners = () => {
                             <img className="img-fluid" src={img6} alt="..." />
                             <div className="portfolio-box-caption p-3">
                                 <div className="project-category text-white-50">Partner</div>
-                                <div className="project-name">Hotel F</div>
+                                <div className="project-name">Hotel France</div>
                             </div>
                         </a>
                     </div>

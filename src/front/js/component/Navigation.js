@@ -42,7 +42,7 @@ const Menu = styled.ul`
     width: 100vw;
     height: ${(props) => `calc(100vh - 5rem)`};
     z-index: 50;
-    background-color: ${(props) => `rgba(255,255,255,0.85)`};
+    background-color: ${(props) => `#67032f`};
     backdrop-filter: blur(2px);
 
     transform: ${(props) =>
@@ -55,7 +55,7 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li`
   margin: 0 1rem;
-  color: #080808;
+  color: #fafbfd;
   cursor: pointer;
 
   &::after {
