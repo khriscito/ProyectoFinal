@@ -7,7 +7,7 @@ import NewRoom from "./pages/NewRoom.jsx";
 import Home from "./component/home.jsx";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-import { Footer } from "./component/footer";
+import  Footer  from "./component/Footer.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import { createContext, useState } from "react";

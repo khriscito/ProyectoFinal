@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../layout.js";
 import { Context } from "../store/appContext.js";
+import Navbar from "../component/navbar.js";
 
 const initialValue = {
   email: "",
@@ -29,6 +30,7 @@ const Login = () => {
 
   return (
     <section className="vh-50 gradientback">
+     <Navbar/>
       <div className="container">
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-lg-12 col-xl-11">

@@ -37,7 +37,7 @@ const Title = styled.h2`
 const TypeWriterText = () => {
   return (
     <Title>
-      Bienvenido!
+      <span className="homed">Bienvenido!</span>
       <Typewriter
         options={{
           autoStart: true,
@@ -45,13 +45,13 @@ const TypeWriterText = () => {
         }}
         onInit={(typewriter) => {
           typewriter
-            .typeString('<span class="text-1">Descubre funciones</span>')
+            .typeString('<span class="text-1 homed">Descubre funciones</span>')
             .pauseFor(2000)
             .deleteAll()
-            .typeString('<span class="text-2">Crea habitaciones</span>')
+            .typeString('<span class="text-2 homed">Crea habitaciones</span>')
             .pauseFor(2000)
             .deleteAll()
-            .typeString('<span class="text-3">Administra tu hotel</span>')
+            .typeString('<span class="text-3 homed">Administra tu hotel</span>')
             .pauseFor(2000)
             .deleteAll()
             .start();

@@ -4,7 +4,6 @@ import { UserContext } from '../layout';
 const Profile = () => {
   const context = useContext(UserContext);
   return (
-
     <div>Profile of {context.usuario.email}</div>
   )
 };

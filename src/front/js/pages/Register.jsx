@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext} from "react";
 import  ReactDOM  from 'react-dom';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import Navbar from "../component/navbar";
 
 const initialValue = {
     email: "",
@@ -26,7 +27,8 @@ const Register = () => {
 
 
     return (
-        <section className="vh-100 gradientback">
+        <section className="h-100 gradientback">
+        <Navbar/>
         <div className="container">
             <div className="row d-flex justify-content-center align-items-center">
             <div className="col-lg-12 col-xl-11">

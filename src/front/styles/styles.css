@@ -10685,3 +10685,17 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
 }
+
+@media only screen and (max-width: 600px) { 
+  .homep{
+    font-size: medium;
+  }
+  .homed{
+    font-size: large;
+  }
+
+  .homeb{
+    font-size: medium;
+  }
+} 
+
