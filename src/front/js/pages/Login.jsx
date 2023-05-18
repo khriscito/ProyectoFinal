@@ -32,9 +32,6 @@ const Login = () => {
         errorPassword = "La contraseña debe tener al menos 6 caracteres";
       }
     }
-
-
-
 };
 const handleOnClick = async () => {
   const response = await actions.login(login);
