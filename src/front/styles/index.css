@@ -1,7 +1,3 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-    
-*/
 
 .gradientback {
   background-color: #030c3f;
@@ -13,10 +9,7 @@
   );
 }
 
-/* 
-    Af
-    
-*/
+
 
 * {
   margin: 0;
