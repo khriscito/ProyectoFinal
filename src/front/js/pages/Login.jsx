@@ -12,7 +12,7 @@ const initialValue = {
 };
 const Login = () => {
   const { store, actions } = useContext(Context);
-
+  const navigate= useNavigate()
   const [login, setLogin] = useState(initialValue);
   const handleChange = (event) => {
     setLogin({ ...login, [event.target.name]: event.target.value });
@@ -32,6 +32,7 @@ const Login = () => {
         errorPassword = "La contraseña debe tener al menos 6 caracteres";
       }
     }
+    setLogin({ ...login, errorEmail:errorEmail, errorPassword:errorPassword });
 };
 const handleOnClick = async () => {
   const response = await actions.login(login);

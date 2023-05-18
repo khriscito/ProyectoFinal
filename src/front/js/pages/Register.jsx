@@ -16,30 +16,30 @@ const Register = () => {
   const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let errors = { ...newUser };
+    let errors = {};
     if (name === "name") {
       if (value.length <= 0) {
-        errors.errorName = "El nombre del hotel no puede estar vacio";
+        errors["errorName"] = "El nombre del hotel no puede estar vacio";
       }
     }
     if (name === "email") {
       if (!/\S+@\S+\.\S+/.test(value)) {
-        errors.errorEmail = "Correo inválido";
+        errors["errorEmail"] = "Correo inválido";
       }
     }
     if (name === "password") {
       if (value.length < 6) {
-        errors.errorPassword = "La contraseña debe tener al menos 6 caracteres";
+        errors["errorPassword"] = "La contraseña debe tener al menos 6 caracteres";
       }
     }
     if (name === "repeat_password") {
       if (value !== newUser.password) {
-        errors.errorRepeatPassword = "La password debe coincidir";
+        errors["errorRepeatPassword"] = "La password debe coincidir";
       } else {
-        errors.errorRepeatPassword = "";
+        errors["errorRepeatPassword"] = "";
       }
     }
-    setNewUser({ ...newUser, [event.target.name]: event.target.value });
+    setNewUser({ ...newUser, [event.target.name]: event.target.value, errors });
   };
   const handleOnClick = async () => {
     const response = await actions.registerUser(newUser);
@@ -71,8 +71,8 @@ const Register = () => {
                             value={newUser.name}
                             onChange={(event) => handleChange(event)}
                           />
-                          {newUser.errorName && (
-                            <p className="error-text">{newUser.errorName}</p>
+                          {newUser.errors?.errorName && (
+                            <p className="error-text">{newUser.errors?.errorName}</p>
                           )}
                         </div>
                       </div>
@@ -92,8 +92,8 @@ const Register = () => {
                             value={newUser.email}
                             onChange={(event) => handleChange(event)}
                           />
-                          {newUser.errorEmail && (
-                            <p className="error-text">{newUser.errorEmail}</p>
+                          {newUser.errors?.errorEmail && (
+                            <p className="error-text">{newUser.errors?.errorEmail}</p>
                           )}
                         </div>
                       </div>
@@ -113,9 +113,9 @@ const Register = () => {
                             value={newUser.password}
                             onChange={(event) => handleChange(event)}
                           />
-                          {newUser.errorPassword && (
+                          {newUser.errors?.errorPassword && (
                             <p className="error-text">
-                              {newUser.errorPassword}
+                              {newUser.errors?.errorPassword}
                             </p>
                           )}
                         </div>
@@ -133,12 +133,12 @@ const Register = () => {
                             className="form-control"
                             name="repeat_password"
                             placeholder=""
-                            value={newUser.password}
+                            value={newUser.repeat_password}
                             onChange={(event) => handleChange(event)}
                           />
-                          {newUser.errorRepeatPassword && (
+                          {newUser.errors?.errorRepeatPassword && (
                             <p className="error-text">
-                              {newUser.errorRepeatPassword}
+                              {newUser.errors?.errorRepeatPassword}
                             </p>
                           )}
                         </div>
