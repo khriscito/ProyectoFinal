@@ -34,12 +34,13 @@ def get_login():
     body_email = body.get("email", None)
     body_password = body.get("password", None)
     if body_email is None or body_password is None:
-        return {"Error": "no ha colocado su correo o contraseña"}
+        return {"Error": "no ha colocado su correo o contraseña"}, 400
     user = User.query.filter_by(email=body_email).first()
     # extend jwt duration
-
-    expires = timedelta(hours=4)
-    token = create_access_token(identity=user.id, expires_delta=expires)
+    if user is None:
+        return {"Error": "El usuario no existe"}, 404
+    token = create_access_token(identity=user.id, expires_delta=False)
+    print(token)
     return jsonify({"token": token})
 
 
@@ -150,9 +151,10 @@ def create_room():
 def get_room():
     user_id = get_jwt_identity()
     rooms = Rooms.query.filter_by(user_id=user_id).all()
+    print(rooms)
     # return only active rooms
     rooms = list(filter(lambda room: room.is_active, rooms))
-
+    print(rooms)
     return jsonify({"rooms": [room.serialize() for room in rooms]})
 
 
@@ -166,6 +168,15 @@ def delete_room(room_id):
         return jsonify({"room": room.serialize()})
     except Exception as error:
         return jsonify({"msg": error.args[0]})
+
+
+@api.route("/room/free/<int:room_id>", methods=["PATCH"])
+@jwt_required()
+def free_room(room_id):
+    room = Rooms.query.get_or_404(room_id)
+    room.status = "avaible"
+    db.session.commit()
+    return jsonify({"room": room.serialize()})
 
 
 @api.route("/room/<int:room_id>", methods=["PATCH"])
@@ -224,3 +235,12 @@ def checkin():
         return jsonify({"data": "La estancia ha sido creada con exito"}), 201
     except Exception as error:
         return jsonify({"msg": error.args[0]})
+
+
+@api.route("/checkin", methods=["GET"])
+@jwt_required()
+# get all the checkins from the rooms that belong to the user
+def get_checkin():
+    user_id = get_jwt_identity()
+    checkin = Checkin.query.join(Rooms).filter(Rooms.user_id == user_id).all()
+    return jsonify({"checkin": [checkin.serialize() for checkin in checkin]})

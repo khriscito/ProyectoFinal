@@ -44,6 +44,16 @@ class Rooms(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def serialize(self):
+        if self.status == RoomStatus.occupied or self.status == RoomStatus.occupied_maintenance:
+            checkin = Checkin.query.filter_by(Rooms_id=self.id).first()
+
+            return {
+                "id": self.id,
+                "number": self.number,
+                "room_type": self.room_type,
+                "status": self.status.value,
+                "checkin": checkin.serialize()
+            }
         return {
             "id": self.id,
             "number": self.number,
@@ -84,12 +94,13 @@ class Checkin(db.Model):
         db.Integer, db.ForeignKey('customer.id'), nullable=True)
 
     def serialize(self):
+        customer = Customer.query.filter_by(id=self.customer_id).first()
         return {
             "time_in": self.time_in,
             "time_out": self.time_out,
             "observations": self.observations,
             "Room_id": self.Rooms_id,
-            "customer_id": self.customer_id
+            "customer": customer.serialize()
         }
 
     def __repr__(self):

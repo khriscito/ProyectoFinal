@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       backendUrl: process.env.BACKEND_URL,
       token: localStorage.getItem("token") || "",
       rooms: [],
+      checkins: [],
       demo: [
         {
           title: "FIRST",
@@ -68,6 +69,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         });
         const rooms = await response.json();
+        if (!rooms.rooms || rooms.rooms.length === 0) {
+          return false;
+        }
         const sortedRooms = rooms.rooms.sort((a, b) => {
           return a.id - b.id;
         });
@@ -98,6 +102,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         return true;
       },
+      finishStay: async (room_id) => {
+        const store = getStore();
+        try {
+          const response = await fetch(
+            store.backendUrl + "/api/room/free/" + room_id,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-type": "application/json",
+                authorization: "Bearer " + store.token,
+              },
+            }
+          );
+          const mensaje = await response.json();
+          if (!response.ok) {
+            toast.error("Error al finalizar estadia");
+            return false;
+          }
+          toast.success("Estadia finalizada con exito");
+          getActions().room();
+          return true;
+        } catch (error) {
+          console.log("error al finalizar estadia", error);
+        }
+      },
+
       changeRoomStatus: async (room_id, status) => {
         const store = getStore();
         try {
@@ -122,6 +152,27 @@ const getState = ({ getStore, getActions, setStore }) => {
           return true;
         } catch (error) {
           console.log("error al cambiar estado de habitacion", error);
+        }
+      },
+      getCheckins: async () => {
+        const store = getStore();
+        try {
+          const response = await fetch(store.backendUrl + "/api/checkin", {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              authorization: "Bearer " + store.token,
+            },
+          });
+          const checkins = await response.json();
+          if (!response.ok) {
+            toast.error("Error al cargar checkins");
+            return false;
+          }
+          setStore({ ...store, checkins: checkins.checkin });
+          return true;
+        } catch (error) {
+          console.log("error al cargar checkins", error);
         }
       },
       deleteRoom: async (room_id) => {
