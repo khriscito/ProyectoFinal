@@ -35,7 +35,7 @@ const RoomCard = ({
     }
   };
   return (
-    <div className="col-xl-3 col-md-6 col-lg-6 p-5 h-100">
+    <div className="col-xl-3 col-md-6 col-lg-6 p-3 h-100">
       <div className={`card ${variants[variant]} mb-4 h-100`}>
         <div className="align-items-center justify-content-center h-100">
           <div className="card-header h-100">
